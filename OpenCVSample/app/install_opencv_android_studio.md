@@ -35,7 +35,43 @@ Next follow these steps:
 4) Set compile version to API 26 and build tools version to 30.0.3
 ```
 
-### References
-OpenCV documentation `https://docs.opencv.org/`
-This guide uses information from Ancode's youtube video `https://www.youtube.com/watch?v=psoeNfFAKL8`
+## OpenCV Camera Information
+Add to android manifest file to allow camera permissions
+```
+<uses-permission android:name="android.permission.CAMERA"/> 
+<uses-feature android:name="android.hardware.camera" android:required="false"/>
+<uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+<uses-feature android:name="android.hardware.camera.front" android:required="false"/>
+<uses-feature android:name="android.hardware.camera.front.autofocus" android:required="false"/>
+```
+It is possible receive frames from the camera and have OpenCV process those frames. 
+There are advantages and disadvantages to each, but the native camera view does allow a higher resoluiton.
+In order to use the java camera view or the native camera view implement one of the following view classes
+in a FrameLayout inside an xml activity file.
+```
+<FrameLayout xmlns:android=http://schemas.android.com/apk/res/android
+     xmlns:tools=http://schemas.android.com/tools
+     xmlns:opencv=http://schemas.android.com/apk/res-auto
+     android:layout_width="match_parent"
+     android:layout_height="match_parent" >
 
+     <org.opencv.android.JavaCameraView
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:visibility="gone"
+          android:id="@+id/tutorial1_activity_java_surface_view"
+          opencv:show_fps="true"  opencv:camera_id="any" />
+
+     <org.opencv.android.NativeCameraView
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:visibility="gone"
+          android:id="@+id/tutorial1_activity_native_surface_view"
+          opencv:show_fps="true"  opencv:camera_id="any" />
+
+</FrameLayout>
+```
+### References
+- OpenCV documentation `https://docs.opencv.org/`
+- This guide uses information from Ancode's youtube videos `https://www.youtube.com/watch?v=psoeNfFAKL8`
+ and `https://www.youtube.com/watch?v=2NUo2Up8JIM`
